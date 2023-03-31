@@ -8,7 +8,6 @@ namespace Ex01_03
         public static void Main()
         {
             printDiamondWithCostumatizeHeight();
-            Console.ReadKey();
         }
 
         public static void printDiamondWithCostumatizeHeight()
@@ -21,6 +20,7 @@ namespace Ex01_03
             while(!isSuccessParseString)
             {
                 System.Console.Write("invalid height number,try again and press enter:");
+                stringNumberRaw = System.Console.ReadLine();
                 isSuccessParseString = int.TryParse(stringNumberRaw, out o_diamondHeight);
             }
 
