@@ -12,50 +12,62 @@ namespace Ex01_02
 
         public static void PrintDiamondRhombus(int i_RhombusHeight)
         {
-            int staringNumberOfStars = 1;
-            printDiamondRhombusHelperRecursive(i_RhombusHeight, staringNumberOfStars);
-
+           const int k_StaringNumberOfStars = 1;
+            printDiamondRhombusHelperRecursive(i_RhombusHeight, k_StaringNumberOfStars);
         }
-
         private static void printDiamondRhombusHelperRecursive(int i_RhombusHeight,int  i_NumberOfStar)
         {
             if (i_NumberOfStar > i_RhombusHeight  )
             {
                 return;
             }
-
-            int lineCharWroteCounter = 0;
-            printOneLineOfRhombus(i_RhombusHeight, i_NumberOfStar,ref lineCharWroteCounter);
+            printOneLineOfRhombus(i_RhombusHeight, i_NumberOfStar);
             printDiamondRhombusHelperRecursive(i_RhombusHeight, i_NumberOfStar + 2);
             if(i_NumberOfStar < i_RhombusHeight)
             {
-                printOneLineOfRhombus(i_RhombusHeight, i_NumberOfStar, ref lineCharWroteCounter);
-
+                printOneLineOfRhombus(i_RhombusHeight, i_NumberOfStar);
             }
         }
-
-        private static void printOneLineOfRhombus(int i_LineLength, int i_NumberOfStars,ref int io_CharWroteCounter)
+        private static void stringOfSingleCharWithRecursion(char i_CharToRepeat, int i_CharAmount,ref StringBuilder o_OutputString)
         {
-            int spaceCharBeforeStarsAmount = (i_LineLength - i_NumberOfStars) / 2;
-            
-            if (spaceCharBeforeStarsAmount == (i_LineLength - io_CharWroteCounter) && io_CharWroteCounter != 0)
+            if(i_CharAmount == 0)
             {
-                io_CharWroteCounter = 0;
-                System.Console.Write(Environment.NewLine);
                 return;
             }
+            o_OutputString.Append(i_CharToRepeat);
+            stringOfSingleCharWithRecursion(i_CharToRepeat, i_CharAmount - 1, ref o_OutputString);
 
-            
-            if (spaceCharBeforeStarsAmount > io_CharWroteCounter)
-            {
-                System.Console.Write(' ');
-            }
-            else if(spaceCharBeforeStarsAmount +i_NumberOfStars> io_CharWroteCounter)
-            {
-                System.Console.Write('*');
-            }
-            io_CharWroteCounter++;
-            printOneLineOfRhombus(i_LineLength, i_NumberOfStars, ref io_CharWroteCounter);
+        }
+        private static void printOneLineOfRhombus(int i_LineLength, int i_NumberOfStars)
+        {
+            int spaceCharBeforeStarsAmount = (i_LineLength - i_NumberOfStars) / 2;
+            StringBuilder lineOsStartString = new StringBuilder(i_LineLength);
+            char spaceChar = ' ';
+            char starChar = '*';
+
+            stringOfSingleCharWithRecursion(spaceChar, spaceCharBeforeStarsAmount, ref lineOsStartString);
+            stringOfSingleCharWithRecursion(starChar, i_NumberOfStars, ref lineOsStartString);
+            System.Console.WriteLine(lineOsStartString.ToString());
+
+            //if (spaceCharBeforeStarsAmount == (i_LineLength - io_CharWroteCounter) && io_CharWroteCounter != 0)
+            //{
+            //    io_CharWroteCounter = 0;
+            //    System.Console.Write(Environment.NewLine);
+            //    return;
+            //}
+
+
+            //if (spaceCharBeforeStarsAmount > io_CharWroteCounter)
+            //{
+            //    System.Console.Write(' ');
+            //}
+            //else if(spaceCharBeforeStarsAmount +i_NumberOfStars> io_CharWroteCounter)
+            //{
+            //    System.Console.Write('*');
+            //}
+            //io_CharWroteCounter++;
+
+            // printOneLineOfRhombus(i_LineLength, i_NumberOfStars, ref io_CharWroteCounter);
 
 
         }
