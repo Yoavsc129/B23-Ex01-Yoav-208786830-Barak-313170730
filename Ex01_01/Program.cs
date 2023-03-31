@@ -1,4 +1,7 @@
-﻿namespace Ex01_01
+﻿using System;
+using System.Text;
+
+namespace Ex01_01
 {
     public class Program
     {
@@ -17,7 +20,7 @@
             int numOfDescendingDigits = 0;
             int numOfPalindromes = 0;
             int[] allInputsInDecimal = new int[3];
-            System.Console.WriteLine("Please enter 3 binary numbers with 8 digits each:");
+            Console.WriteLine("Please enter 3 binary numbers with 8 digits each:");
             for(int i = 0; i < k_NumOfNumbers; i++)
             {
                 inputInBinary = getInputFromUser(out int inputInDecimal);
@@ -43,9 +46,9 @@ there are {5} numbers whose digits make a palindrome",
                 numOfDivisiablesBy4,
                 numOfDescendingDigits,
                 numOfPalindromes);
-            System.Console.WriteLine(msg);
-            System.Console.WriteLine("Please press 'Enter' to exit...");
-            System.Console.ReadLine();
+            Console.WriteLine(msg);
+            Console.WriteLine("Please press 'Enter' to exit...");
+            Console.ReadLine();
         }
 
         private static string getInputFromUser(out int o_DecimalNumber)
@@ -56,14 +59,14 @@ there are {5} numbers whose digits make a palindrome",
             o_DecimalNumber = 0;
             while (inputIsInvalid)
             {
-                userInput = System.Console.ReadLine();
+                userInput = Console.ReadLine();
                 if (checkAndConvertToDecimalIfBinaryNumber(userInput, out o_DecimalNumber))
                 {
                     inputIsInvalid = false;
                 }
                 else
                 {
-                    System.Console.WriteLine(k_InvalidInputMsg);
+                    Console.WriteLine(k_InvalidInputMsg);
                 }
             }
 
@@ -89,7 +92,7 @@ there are {5} numbers whose digits make a palindrome",
                 }
                 else
                 {
-                    o_DecimalNumber += int.Parse(i_UserInput[i].ToString()) * (int)System.Math.Pow(k_Base, stringLen - i - 1);
+                    o_DecimalNumber += int.Parse(i_UserInput[i].ToString()) * (int)Math.Pow(k_Base, stringLen - i - 1);
                 }
             }
 
@@ -177,7 +180,7 @@ there are {5} numbers whose digits make a palindrome",
 
         private static string addIntegersToString(int[] i_Integers)
         {
-            System.Text.StringBuilder stringOfNumbers = new System.Text.StringBuilder();
+            StringBuilder stringOfNumbers = new StringBuilder();
             stringOfNumbers.AppendFormat("{0} {1} {2}", i_Integers[0], i_Integers[1], i_Integers[2]);
             return stringOfNumbers.ToString();
         }
