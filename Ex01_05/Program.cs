@@ -1,14 +1,14 @@
 ﻿using System;
 
-
 namespace Ex01_05
 {
-    class Program
+   public class Program
     {
         public static void Main()
         {
             getNumberAndCheckStatistics();
         } 
+
         private static void getNumberAndCheckStatistics()
         {
             string stringNumberRaw;
@@ -37,13 +37,13 @@ namespace Ex01_05
                         "invalid number length-must enter {0} of digit number,try again and press enter:",
                         reqireNumberInputLength);
                 }
-
             }
             while(!isInputIsNumber || !isSixDigitNumber);
 
             int digitAmount = stringNumberRaw.Length;
             string unitDigitRaw = stringNumberRaw.Substring(stringNumberRaw.Length - 1);
             int.TryParse(unitDigitRaw, out int unitDigit);
+
             for(int i = 0; i < digitAmount; i++)
             {
                 string currentDigitString = stringNumberRaw[i].ToString();
@@ -71,7 +71,6 @@ namespace Ex01_05
         the smallest digit: {smallestDigit}
         the number is digits that divide in 3 :{countDivideIn3}
         the average of the number digits: {sumAllDigit / digitAmount}");
-
         }
     }
 }

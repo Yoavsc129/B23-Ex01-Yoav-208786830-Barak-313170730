@@ -33,9 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Ex01_02\Ex01_02.csproj">
       <Project>{39aa425b-c866-42ac-adc5-3847c7e35f03}</Project>
       <Name>Ex01_02</Name>
