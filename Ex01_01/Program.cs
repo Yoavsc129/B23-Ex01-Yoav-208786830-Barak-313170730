@@ -25,7 +25,7 @@ namespace Ex01_01
             {
                 inputInBinary = getInputFromUser(out int inputInDecimal);
                 countZeroesAndOnesInBinaryNumber(inputInBinary, ref numOfZeroes, ref numOfOnes);
-                checkIfDivisableByFour(inputInDecimal, ref numOfDivisiablesBy4);
+                checkIfDivisibleByFour(inputInDecimal, ref numOfDivisiablesBy4);
                 checkIfDigitsAreDescending(inputInDecimal, ref numOfDescendingDigits);
                 checkIfPalindrome(inputInDecimal, ref numOfPalindromes);
                 allInputsInDecimal[i] = inputInDecimal;
@@ -114,7 +114,7 @@ there are {5} numbers whose digits make a palindrome",
             }
         }
 
-        private static void checkIfDivisableByFour(int i_DecimalNumber, ref int r_NumOfDivisiablesBy4)
+        private static void checkIfDivisibleByFour(int i_DecimalNumber, ref int r_NumOfDivisiablesBy4)
         {
             if(i_DecimalNumber % 4 == 0)
             {

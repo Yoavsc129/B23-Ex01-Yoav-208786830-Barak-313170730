@@ -16,12 +16,14 @@ namespace Ex01_02
            const int k_StaringNumberOfStars = 1;
             printDiamondRhombusHelperRecursive(i_RhombusHeight, k_StaringNumberOfStars);
         }
-        private static void printDiamondRhombusHelperRecursive(int i_RhombusHeight,int  i_NumberOfStar)
+
+        private static void printDiamondRhombusHelperRecursive(int i_RhombusHeight, int i_NumberOfStar)
         {
-            if (i_NumberOfStar > i_RhombusHeight  )
+            if (i_NumberOfStar > i_RhombusHeight)
             {
                 return;
             }
+
             printOneLineOfRhombus(i_RhombusHeight, i_NumberOfStar);
             printDiamondRhombusHelperRecursive(i_RhombusHeight, i_NumberOfStar + 2);
             if(i_NumberOfStar < i_RhombusHeight)
@@ -29,16 +31,18 @@ namespace Ex01_02
                 printOneLineOfRhombus(i_RhombusHeight, i_NumberOfStar);
             }
         }
-        private static void stringOfSingleCharWithRecursion(char i_CharToRepeat, int i_CharAmount,ref StringBuilder o_OutputString)
+
+        private static void stringOfSingleCharWithRecursion(char i_CharToRepeat, int i_CharAmount, ref StringBuilder o_OutputString)
         {
             if(i_CharAmount == 0)
             {
                 return;
             }
+
             o_OutputString.Append(i_CharToRepeat);
             stringOfSingleCharWithRecursion(i_CharToRepeat, i_CharAmount - 1, ref o_OutputString);
-
         }
+
         private static void printOneLineOfRhombus(int i_LineLength, int i_NumberOfStars)
         {
             int spaceCharBeforeStarsAmount = (i_LineLength - i_NumberOfStars) / 2;
