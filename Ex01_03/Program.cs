@@ -12,7 +12,7 @@ namespace Ex01_03
 
         public static void printDiamondWithCostumatizeHeight()
         {
-
+            Console.ReadKey();
         
             System.Console.Write("Please enter the desire diamond height and press enter:");
             string stringNumberRaw = System.Console.ReadLine();
@@ -28,7 +28,6 @@ namespace Ex01_03
             {
                 o_diamondHeight++;
             }
-            Console.WriteLine("height:"+ o_diamondHeight);
             Ex01_02.Program.PrintDiamondRhombus(o_diamondHeight);
 
         }

@@ -7,7 +7,8 @@ namespace Ex01_02
     {
         public static void Main()
         {
-            PrintDiamondRhombus(9);
+            const int k_dimaondHeight = 9;
+            PrintDiamondRhombus(k_dimaondHeight);
         }
 
         public static void PrintDiamondRhombus(int i_RhombusHeight)
@@ -48,28 +49,6 @@ namespace Ex01_02
             stringOfSingleCharWithRecursion(spaceChar, spaceCharBeforeStarsAmount, ref lineOsStartString);
             stringOfSingleCharWithRecursion(starChar, i_NumberOfStars, ref lineOsStartString);
             System.Console.WriteLine(lineOsStartString.ToString());
-
-            //if (spaceCharBeforeStarsAmount == (i_LineLength - io_CharWroteCounter) && io_CharWroteCounter != 0)
-            //{
-            //    io_CharWroteCounter = 0;
-            //    System.Console.Write(Environment.NewLine);
-            //    return;
-            //}
-
-
-            //if (spaceCharBeforeStarsAmount > io_CharWroteCounter)
-            //{
-            //    System.Console.Write(' ');
-            //}
-            //else if(spaceCharBeforeStarsAmount +i_NumberOfStars> io_CharWroteCounter)
-            //{
-            //    System.Console.Write('*');
-            //}
-            //io_CharWroteCounter++;
-
-            // printOneLineOfRhombus(i_LineLength, i_NumberOfStars, ref io_CharWroteCounter);
-
-
         }
     }
 }
