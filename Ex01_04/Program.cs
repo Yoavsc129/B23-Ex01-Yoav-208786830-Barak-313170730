@@ -55,33 +55,21 @@ namespace Ex01_04
         private static bool checkUserInput(string i_userInput, int i_ValidStringLength = 6)
         {
             bool isValidInput = true;
-            UnicodeCategory userInputType = char.GetUnicodeCategory(i_userInput[0]);
-            bool isLetter = checkIfLetter(userInputType);
-            if ((userInputType != UnicodeCategory.DecimalDigitNumber && !isLetter) || i_userInput.Length != i_ValidStringLength)
+            bool isLetter = char.IsLetter(i_userInput[0]);
+            if (!char.IsLetterOrDigit(i_userInput[0]) || i_userInput.Length != i_ValidStringLength)
             {
                 isValidInput = false;
             }
 
             for(int i = 1; i < i_userInput.Length && isValidInput; i++)
             {
-                if(char.GetUnicodeCategory(i_userInput[i]) != userInputType && !(isLetter && checkIfLetter(char.GetUnicodeCategory(i_userInput[i]))))
+                if((!isLetter && !char.IsDigit(i_userInput[i])) || (isLetter && !char.IsLetter(i_userInput[i])))
                 {
                     isValidInput = false;
                 }
             }
 
             return isValidInput;
-        }
-
-        private static bool checkIfLetter(UnicodeCategory i_CharType)
-        {
-            bool isLetter = false;
-            if(i_CharType == UnicodeCategory.LowercaseLetter || i_CharType == UnicodeCategory.UppercaseLetter)
-            {
-                isLetter = true;
-            }
-
-            return isLetter;
         }
 
         private static bool checkIfPalindrome(string i_userInput)
@@ -110,7 +98,10 @@ namespace Ex01_04
             int uppercaseCount = 0;
             for(int i = 0; i < i_userInput.Length; i++)
             {
-                uppercaseCount += char.GetUnicodeCategory(i_userInput[i]) == UnicodeCategory.UppercaseLetter ? 1 : 0;
+                if (char.IsUpper(i_userInput[i]))
+                {
+                    uppercaseCount++;
+                }
             }
 
             return uppercaseCount;
