@@ -24,7 +24,6 @@ namespace Ex01_03
                 isSuccessParseString = int.TryParse(stringNumberRaw, out o_diamondHeight);
             }
 
-            // if o_diamondHeight is even 
             if (o_diamondHeight % 2 == 0)
             {
                 o_diamondHeight++;

@@ -15,6 +15,8 @@ namespace Ex01_02
         {
            const int k_StaringNumberOfStars = 1;
             printDiamondRhombusHelperRecursive(i_RhombusHeight, k_StaringNumberOfStars);
+            Console.WriteLine("Please press 'Enter' to exit...");
+            Console.ReadLine();
         }
 
         private static void printDiamondRhombusHelperRecursive(int i_RhombusHeight, int i_NumberOfStar)

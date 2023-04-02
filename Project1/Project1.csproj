@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{959D42A0-C470-4603-906F-450F2256096C}</ProjectGuid>
+    <ProjectGuid>{BB70527A-BCA9-4060-B963-9DE6B77372D0}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Ex01_03</RootNamespace>
-    <AssemblyName>Ex01_03</AssemblyName>
+    <RootNamespace>Project1</RootNamespace>
+    <AssemblyName>Project1</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -32,15 +32,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Ex01_02\Ex01_02.csproj">
-      <Project>{39aa425b-c866-42ac-adc5-3847c7e35f03}</Project>
-      <Name>Ex01_02</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Program.cs" />
-  </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>

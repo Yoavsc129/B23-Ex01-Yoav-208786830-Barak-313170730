@@ -54,12 +54,9 @@ namespace Ex01_05
                     countDivideIn3++;
                 }
 
-                if(smallestDigit > currentDigit)
-                {
-                    smallestDigit = currentDigit;
-                }
+                smallestDigit = Math.Min(smallestDigit, currentDigit);
 
-                if(currentDigit > unitDigit)
+                if (currentDigit > unitDigit)
                 {
                     countBiggerThenUnitPlace++;
                 }
@@ -70,7 +67,10 @@ namespace Ex01_05
         number of digit that bigger then unit place: {countBiggerThenUnitPlace}
         the smallest digit: {smallestDigit}
         the number is digits that divide in 3 :{countDivideIn3}
-        the average of the number digits: {sumAllDigit / digitAmount}");
+        the average of the number digits: {sumAllDigit / digitAmount}"); 
+
+        Console.WriteLine("Please press 'Enter' to exit...");
+        Console.ReadLine();
         }
     }
 }
