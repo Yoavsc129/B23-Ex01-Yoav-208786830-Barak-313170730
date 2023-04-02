@@ -20,6 +20,7 @@ namespace Ex01_01
             int numOfDescendingDigits = 0;
             int numOfPalindromes = 0;
             int[] allInputsInDecimal = new int[3];
+
             Console.WriteLine("Please enter 3 binary numbers with 8 digits each:");
             for(int i = 0; i < k_NumOfNumbers; i++)
             {
@@ -47,6 +48,7 @@ there are {5} numbers whose digits make a palindrome",
                 numOfDescendingDigits,
                 numOfPalindromes);
             Console.WriteLine(msg);
+
             Console.WriteLine("Please press 'Enter' to exit...");
             Console.ReadLine();
         }
@@ -57,6 +59,7 @@ there are {5} numbers whose digits make a palindrome",
             const string k_InvalidInputMsg = "The input you entered is invalid. Please try again.";
             string userInput = string.Empty;
             o_DecimalNumber = 0;
+
             while (inputIsInvalid)
             {
                 userInput = Console.ReadLine();
@@ -79,6 +82,7 @@ there are {5} numbers whose digits make a palindrome",
             int stringLen = i_UserInput.Length;
             bool isValidInput = true;
             o_DecimalNumber = 0;
+
             if(stringLen != 8)
             {
                 isValidInput = false;
@@ -127,6 +131,7 @@ there are {5} numbers whose digits make a palindrome",
             string decimalNumberAsString = i_DecimalNumber.ToString();
             char currentChar = decimalNumberAsString[0];
             bool isDescending = true;
+
             for (int i = 1; i < decimalNumberAsString.Length && isDescending; i++)
             {
                 if(currentChar <= decimalNumberAsString[i])
@@ -147,6 +152,7 @@ there are {5} numbers whose digits make a palindrome",
         {
             string decimalNumberAsString = i_DecimalNumber.ToString();
             bool isPalindrome = true;
+
             for(int i = 0; i < decimalNumberAsString.Length / 2 && isPalindrome; i++)
             {
                 if(decimalNumberAsString[i] != decimalNumberAsString[decimalNumberAsString.Length - i - 1])
@@ -164,6 +170,7 @@ there are {5} numbers whose digits make a palindrome",
         private static void sortArrayOfIntegers(ref int[] r_array)
         {
             const int k_NumOfNumbers = 3;
+
             for(int i = 0; i < k_NumOfNumbers - 1; i++)
             {
                 for(int j = 0; j < k_NumOfNumbers - i - 1; j++)
@@ -181,6 +188,7 @@ there are {5} numbers whose digits make a palindrome",
         private static string addIntegersToString(int[] i_Integers)
         {
             StringBuilder stringOfNumbers = new StringBuilder();
+
             stringOfNumbers.AppendFormat("{0} {1} {2}", i_Integers[0], i_Integers[1], i_Integers[2]);
             return stringOfNumbers.ToString();
         }

@@ -16,6 +16,7 @@ namespace Ex01_04
             Console.WriteLine("Please enter a string of either 6 digits or 6 letters:");
             string userInput = getInputFromUser();
             StringBuilder stringAnalysis = new StringBuilder();
+
             stringAnalysis.Append("Is the string a palindrome? ").Append(checkIfPalindrome(userInput)).Append(Environment.NewLine);
             if(int.TryParse(userInput, out int parsedInteger))
             {
@@ -27,6 +28,7 @@ namespace Ex01_04
             }
 
             Console.WriteLine(stringAnalysis);
+
             Console.WriteLine("Please press 'Enter' to exit...");
             Console.ReadLine();
         }
@@ -36,6 +38,7 @@ namespace Ex01_04
             bool inputIsInvalid = true;
             const string k_InvalidInputMsg = "The input you entered is invalid. Please try again.";
             string userInput = string.Empty;
+
             while (inputIsInvalid)
             {
                 userInput = Console.ReadLine();
@@ -56,6 +59,7 @@ namespace Ex01_04
         {
             bool isValidInput = true;
             bool isLetter = char.IsLetter(i_userInput[0]);
+
             if (!char.IsLetterOrDigit(i_userInput[0]) || i_userInput.Length != i_ValidStringLength)
             {
                 isValidInput = false;
@@ -96,6 +100,7 @@ namespace Ex01_04
         private static int countUppercaseLetters(string i_userInput)
         {
             int uppercaseCount = 0;
+
             for(int i = 0; i < i_userInput.Length; i++)
             {
                 if (char.IsUpper(i_userInput[i]))
