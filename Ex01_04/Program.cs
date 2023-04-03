@@ -8,18 +8,20 @@ namespace Ex01_04
     {
         public static void Main()
         {
-            RunStringAnalysis();
+            runStringAnalysis();
         }
 
-        public static void RunStringAnalysis()
+        private static void runStringAnalysis()
         {
-            Console.WriteLine("Please enter a string of either 6 digits or 6 letters:");
-            string userInput = getInputFromUser();
+            string userInput=string.Empty;
             StringBuilder stringAnalysis = new StringBuilder();
-            stringAnalysis.Append("Is the string a palindrome? ").Append(checkIfPalindrome(userInput)).Append(Environment.NewLine);
+
+            Console.WriteLine("Please enter a string of either 6 digits or 6 letters:");
+            userInput = getValidSixCharStringInputOfLetterOrNumbersOnlyFromUser();
+            stringAnalysis.Append("Is the string a palindrome? ").Append(checkIfStringIsPalindrome(userInput)).Append(Environment.NewLine);
             if(int.TryParse(userInput, out int parsedInteger))
             {
-                stringAnalysis.Append("Is the number divisable by 3? ").Append(checkIfDivisableBy3(parsedInteger)).Append(Environment.NewLine);
+                stringAnalysis.Append("Is the number divisible by 3? ").Append(checkIfDivisableBy3(parsedInteger)).Append(Environment.NewLine);
             }
             else
             {
@@ -31,39 +33,40 @@ namespace Ex01_04
             Console.ReadLine();
         }
 
-        private static string getInputFromUser()
+        private static string getValidSixCharStringInputOfLetterOrNumbersOnlyFromUser()
         {
-            bool inputIsInvalid = true;
-            const string k_InvalidInputMsg = "The input you entered is invalid. Please try again.";
+            bool isInvalidInputLettersOnlyOrNumbersOnly= true;
             string userInput = string.Empty;
-            while (inputIsInvalid)
+
+            while (isInvalidInputLettersOnlyOrNumbersOnly)
             {
                 userInput = Console.ReadLine();
                 if (checkUserInput(userInput))
                 {
-                    inputIsInvalid = false;
+                    isInvalidInputLettersOnlyOrNumbersOnly = false;
                 }
                 else
                 {
-                    Console.WriteLine(k_InvalidInputMsg);
+                    Console.WriteLine("The input you entered is invalid. Please try again.");
                 }
             }
             
             return userInput;
         }
 
-        private static bool checkUserInput(string i_userInput, int i_ValidStringLength = 6)
+        private static bool checkUserInput(string i_UserInput, int i_ValidStringLength = 6)
         {
             bool isValidInput = true;
-            bool isLetter = char.IsLetter(i_userInput[0]);
-            if (!char.IsLetterOrDigit(i_userInput[0]) || i_userInput.Length != i_ValidStringLength)
+            bool isLetter = char.IsLetter(i_UserInput[0]);
+
+            if (!char.IsLetterOrDigit(i_UserInput[0]) || i_UserInput.Length != i_ValidStringLength)
             {
                 isValidInput = false;
             }
 
-            for(int i = 1; i < i_userInput.Length && isValidInput; i++)
+            for(int i = 1; i < i_UserInput.Length && isValidInput; i++)
             {
-                if((!isLetter && !char.IsDigit(i_userInput[i])) || (isLetter && !char.IsLetter(i_userInput[i])))
+                if((!isLetter && !char.IsDigit(i_UserInput[i])) || (isLetter && !char.IsLetter(i_UserInput[i])))
                 {
                     isValidInput = false;
                 }
@@ -72,7 +75,7 @@ namespace Ex01_04
             return isValidInput;
         }
 
-        private static bool checkIfPalindrome(string i_userInput)
+        private static bool checkIfStringIsPalindrome(string i_userInput)
         {
             bool isPalindrome;
 
@@ -82,7 +85,8 @@ namespace Ex01_04
             }
             else
             {
-                isPalindrome = (i_userInput[0] == i_userInput[i_userInput.Length - 1]) && checkIfPalindrome(i_userInput.Substring(1, i_userInput.Length - 2));
+                isPalindrome = (i_userInput[0] == i_userInput[i_userInput.Length - 1])
+                               && checkIfStringIsPalindrome(i_userInput.Substring(1, i_userInput.Length - 2));
             }
 
             return isPalindrome;
@@ -96,6 +100,7 @@ namespace Ex01_04
         private static int countUppercaseLetters(string i_userInput)
         {
             int uppercaseCount = 0;
+
             for(int i = 0; i < i_userInput.Length; i++)
             {
                 if (char.IsUpper(i_userInput[i]))

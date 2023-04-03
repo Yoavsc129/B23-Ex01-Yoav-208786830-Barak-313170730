@@ -8,6 +8,7 @@ namespace Ex01_01
         private const int k_NumOfInputNumbers = 3;
         private const int k_BaseBinary = 2;
         private const int k_RequireBinaryNumberLength = 8;
+
         public static void Main()
         {
             runBinaryCheckOnInputNumberFromUser();
@@ -75,7 +76,7 @@ there are {5} numbers whose digits make a palindrome",
             bool isInvalidInput = true;
             string userInput = string.Empty;
             o_DecimalNumber = 0;
-
+  
             while (isInvalidInput)
             {
                 userInput = Console.ReadLine();

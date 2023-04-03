@@ -10,16 +10,21 @@ namespace Ex01_03
             PrintDiamondWithCustomizeHeight();
         }
 
-        public static void PrintDiamondWithCustomizeHeight()
+        private static void PrintDiamondWithCustomizeHeight()
         {
-            Console.ReadKey();
-        
-            System.Console.Write("Please enter the desire diamond height and press enter:");
+            int diamondHeight = getValidDiamondHeightInput();
+
+            Ex01_02.Program.PrintDiamondRhombus(diamondHeight);
+        }
+
+        private static int getValidDiamondHeightInput()
+        {
+            System.Console.Write("Please enter the desire diamond height(non negative integer) and press enter:");
             string stringNumberRaw = System.Console.ReadLine();
             bool isSuccessParseString = int.TryParse(stringNumberRaw, out int o_diamondHeight);
-            while(!isSuccessParseString)
+            while (!isSuccessParseString || o_diamondHeight < 0)
             {
-                System.Console.Write("invalid height number,try again and press enter:");
+                System.Console.Write("invalid non negative height number,try again and press enter:");
                 stringNumberRaw = System.Console.ReadLine();
                 isSuccessParseString = int.TryParse(stringNumberRaw, out o_diamondHeight);
             }
@@ -29,7 +34,7 @@ namespace Ex01_03
                 o_diamondHeight++;
             }
 
-            Ex01_02.Program.PrintDiamondRhombus(o_diamondHeight);
+            return o_diamondHeight;
         }
     }
 }

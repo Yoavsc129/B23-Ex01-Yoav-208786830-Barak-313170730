@@ -5,15 +5,18 @@ namespace Ex01_02
 { 
     public class Program
     {
+        const int k_DimaondHeight = 9;
+        const int k_StaringNumberOfStars = 1;
+        const char k_DiamondFillerChar = ' ';
+        const char k_DiamondCharSign = '*';
+
         public static void Main()
         {
-            const int k_dimaondHeight = 9;
-            PrintDiamondRhombus(k_dimaondHeight);
+            PrintDiamondRhombus(k_DimaondHeight);
         }
 
         public static void PrintDiamondRhombus(int i_RhombusHeight)
         {
-           const int k_StaringNumberOfStars = 1;
             printDiamondRhombusHelperRecursive(i_RhombusHeight, k_StaringNumberOfStars);
             Console.WriteLine("Please press 'Enter' to exit...");
             Console.ReadLine();
@@ -26,34 +29,29 @@ namespace Ex01_02
                 return;
             }
 
-            printOneLineOfRhombus(i_RhombusHeight, i_NumberOfStar);
+            printOneLineOfTheRhombus(i_RhombusHeight, i_NumberOfStar);
             printDiamondRhombusHelperRecursive(i_RhombusHeight, i_NumberOfStar + 2);
             if(i_NumberOfStar < i_RhombusHeight)
             {
-                printOneLineOfRhombus(i_RhombusHeight, i_NumberOfStar);
+                printOneLineOfTheRhombus(i_RhombusHeight, i_NumberOfStar);
             }
         }
 
-        private static void stringOfSingleCharWithRecursion(char i_CharToRepeat, int i_CharAmount, ref StringBuilder o_OutputString)
+        private static void stringOfSingleChar(char i_CharToRepeat, int i_CharAmount, ref StringBuilder o_OutputString)
         {
-            if(i_CharAmount == 0)
+            for(int i = 0; i < i_CharAmount; i++)
             {
-                return;
+                o_OutputString.Append(i_CharToRepeat);
             }
-
-            o_OutputString.Append(i_CharToRepeat);
-            stringOfSingleCharWithRecursion(i_CharToRepeat, i_CharAmount - 1, ref o_OutputString);
         }
 
-        private static void printOneLineOfRhombus(int i_LineLength, int i_NumberOfStars)
+        private static void printOneLineOfTheRhombus(int i_LineLength, int i_NumberOfStars)
         {
             int spaceCharBeforeStarsAmount = (i_LineLength - i_NumberOfStars) / 2;
             StringBuilder lineOsStartString = new StringBuilder(i_LineLength);
-            char spaceChar = ' ';
-            char starChar = '*';
 
-            stringOfSingleCharWithRecursion(spaceChar, spaceCharBeforeStarsAmount, ref lineOsStartString);
-            stringOfSingleCharWithRecursion(starChar, i_NumberOfStars, ref lineOsStartString);
+            stringOfSingleChar(k_DiamondFillerChar, spaceCharBeforeStarsAmount, ref lineOsStartString);
+            stringOfSingleChar(k_DiamondCharSign, i_NumberOfStars, ref lineOsStartString);
             System.Console.WriteLine(lineOsStartString.ToString());
         }
     }
