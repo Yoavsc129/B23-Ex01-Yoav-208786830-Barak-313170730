@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.Text;
 
@@ -29,6 +29,7 @@ namespace Ex01_04
             }
 
             Console.WriteLine(stringAnalysis);
+
             Console.WriteLine("Please press 'Enter' to exit...");
             Console.ReadLine();
         }
