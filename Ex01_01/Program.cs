@@ -1,75 +1,91 @@
-﻿using System;
+using System;
 using System.Text;
 
 namespace Ex01_01
 {
     public class Program
     {
+        private const int k_NumOfInputNumbers = 3;
+        private const int k_BaseBinary = 2;
+        private const int k_RequireBinaryNumberLength = 8;
+
         public static void Main()
         {
-            RunBinaryCheck();
+            runBinaryCheckOnInputNumberFromUser();
         }
 
-        public static void RunBinaryCheck()
+        private static void runBinaryCheckOnInputNumberFromUser()
         {
-            const int k_NumOfNumbers = 3;
             string inputInBinary;
             int numOfZeroes = 0;
             int numOfOnes = 0;
-            int numOfDivisiablesBy4 = 0;
+            int numOfDivisibleBy4 = 0;
             int numOfDescendingDigits = 0;
             int numOfPalindromes = 0;
-            int[] allInputsInDecimal = new int[3];
+            int[] allInputsInDecimal = new int[k_NumOfInputNumbers];
+            string stringOfNumbers = string.Empty;
 
-            Console.WriteLine("Please enter 3 binary numbers with 8 digits each:");
-            for(int i = 0; i < k_NumOfNumbers; i++)
+            Console.WriteLine($"Please enter {k_NumOfInputNumbers} binary numbers with {k_RequireBinaryNumberLength} digits each:");
+            for(int i = 0; i < k_NumOfInputNumbers; i++)
             {
-                inputInBinary = getInputFromUser(out int inputInDecimal);
+                inputInBinary = getValidIntegerInputFromUser(out int inputInDecimal);
                 countZeroesAndOnesInBinaryNumber(inputInBinary, ref numOfZeroes, ref numOfOnes);
-                checkIfDivisibleByFour(inputInDecimal, ref numOfDivisiablesBy4);
+                checkIfDivisibleByFour(inputInDecimal, ref numOfDivisibleBy4);
                 checkIfDigitsAreDescending(inputInDecimal, ref numOfDescendingDigits);
-                checkIfPalindrome(inputInDecimal, ref numOfPalindromes);
+                checkIfNumberIsPalindrome(inputInDecimal, ref numOfPalindromes);
                 allInputsInDecimal[i] = inputInDecimal;
             }
 
-            sortArrayOfIntegers(ref allInputsInDecimal);
-            string stringOfNumbers = addIntegersToString(allInputsInDecimal);
-            string msg = string.Format(
-@"The decimal numbers are {0}
-The avarege number of zeroes in a binary number is {1}
-The avarege number of ones in a binary number is {2}
-there are {3} numbers which are divisable by 4
-there are {4} numbers whose digits are in a descending order
-there are {5} numbers whose digits make a palindrome",
-                stringOfNumbers,
-                (float)numOfZeroes / k_NumOfNumbers,
-                (float)numOfOnes / k_NumOfNumbers,
-                numOfDivisiablesBy4,
+            sortArrayOfIntegersUsingBobbleSort(ref allInputsInDecimal);
+             stringOfNumbers = createRowStringFrom3NumberInIntegerArray(allInputsInDecimal);
+            printResultToConsole(
+                stringOfNumbers, 
+                (float)numOfZeroes / k_NumOfInputNumbers,
+                (float)numOfOnes / k_NumOfInputNumbers,
+                numOfDivisibleBy4,
                 numOfDescendingDigits,
                 numOfPalindromes);
-            Console.WriteLine(msg);
-
             Console.WriteLine("Please press 'Enter' to exit...");
             Console.ReadLine();
         }
 
-        private static string getInputFromUser(out int o_DecimalNumber)
+        private static void printResultToConsole(
+            string i_NumberString,
+            float i_AverageNumberOfZeros,
+            float i_AverageNumberOfOnes,
+            int i_NumOfDivisibleBy4,
+            int i_NumOfDescendingDigits,
+            int i_NumOfPalindromes)
         {
-            bool inputIsInvalid = true;
-            const string k_InvalidInputMsg = "The input you entered is invalid. Please try again.";
-            string userInput = string.Empty;
-            o_DecimalNumber = 0;
+            string resultMassageToUser = string.Format(
+                                             @"The decimal numbers are {0}
+The average number of zeroes in a binary number is {1}
+The average number of ones in a binary number is {2}
+there are {3} numbers which are dividable by 4
+there are {4} numbers whose digits are in a descending order
+there are {5} numbers whose digits make a palindrome",
+                                             i_NumberString,
+                                             i_AverageNumberOfZeros,
+                                             i_AverageNumberOfOnes,
+                                             i_NumOfDivisibleBy4,
+                                             i_NumOfDescendingDigits, 
+                                             i_NumOfPalindromes);
+            Console.WriteLine(resultMassageToUser);
+        }
 
-            while (inputIsInvalid)
+        private static string getValidIntegerInputFromUser(out int o_DecimalNumber)
+        {
+            bool isInvalidInput = false;
+            string userInput = string.Empty;
+
+            o_DecimalNumber = 0;
+            while (!isInvalidInput)
             {
                 userInput = Console.ReadLine();
-                if (checkAndConvertToDecimalIfBinaryNumber(userInput, out o_DecimalNumber))
+                isInvalidInput = checkAndConvertToDecimalIfBinaryNumber(userInput, out o_DecimalNumber);
+                if(!isInvalidInput)
                 {
-                    inputIsInvalid = false;
-                }
-                else
-                {
-                    Console.WriteLine(k_InvalidInputMsg);
+                    Console.WriteLine("The input you entered is invalid. Please try again.");
                 }
             }
 
@@ -78,77 +94,64 @@ there are {5} numbers whose digits make a palindrome",
 
         private static bool checkAndConvertToDecimalIfBinaryNumber(string i_UserInput, out int o_DecimalNumber)
         {
-            const int k_Base = 2;
-            int stringLen = i_UserInput.Length;
-            bool isValidInput = true;
+            int stringInputLength = i_UserInput.Length;
+            bool isValidBinaryStringInput = stringInputLength == k_RequireBinaryNumberLength;
+
             o_DecimalNumber = 0;
-
-            if(stringLen != 8)
+            for (int i = stringInputLength - 1; i >= 0 && isValidBinaryStringInput; i--)
             {
-                isValidInput = false;
-            }
-
-            for (int i = stringLen - 1; i >= 0 && isValidInput; i--)
-            {
-                if(i_UserInput[i] > '1' || i_UserInput[i] < '0')
+                isValidBinaryStringInput = i_UserInput[i] == '1' || i_UserInput[i] == '0';
+                if(isValidBinaryStringInput)
                 {
-                    isValidInput = false;
-                }
-                else
-                {
-                    o_DecimalNumber += int.Parse(i_UserInput[i].ToString()) * (int)Math.Pow(k_Base, stringLen - i - 1);
+                    o_DecimalNumber += int.Parse(i_UserInput[i].ToString()) * (int)Math.Pow(k_BaseBinary, stringInputLength - i - 1);
                 }
             }
 
-            return isValidInput;
+            return isValidBinaryStringInput;
         }
 
-        private static void countZeroesAndOnesInBinaryNumber(string i_BinaryNumber, ref int r_NumOfZeroes, ref int r_NumOfOnes)
+        private static void countZeroesAndOnesInBinaryNumber(string i_BinaryNumber, ref int i_NumOfZeroes, ref int i_NumOfOnes)
         {
             for(int i = 0; i < i_BinaryNumber.Length; i++)
             {
                 if(i_BinaryNumber[i] == '0')
                 {
-                    r_NumOfZeroes++;
+                    i_NumOfZeroes++;
                 }
-                else
+                else if(i_BinaryNumber[i] == '1')
                 {
-                    r_NumOfOnes++;
+                    i_NumOfOnes++;
                 }
             }
         }
 
-        private static void checkIfDivisibleByFour(int i_DecimalNumber, ref int r_NumOfDivisiablesBy4)
+        private static void checkIfDivisibleByFour(int i_DecimalNumber, ref int i_NumOfDivisibleBy4)
         {
             if(i_DecimalNumber % 4 == 0)
             {
-                r_NumOfDivisiablesBy4 += 1;
+                i_NumOfDivisibleBy4++;
             }
         }
 
-        private static void checkIfDigitsAreDescending(int i_DecimalNumber, ref int r_NumOfDescendingDigits)
+        private static void checkIfDigitsAreDescending(int i_DecimalNumber, ref int i_NumOfDescendingDigits)
         {
             string decimalNumberAsString = i_DecimalNumber.ToString();
-            char currentChar = decimalNumberAsString[0];
+            char currentDigit = decimalNumberAsString[0];
             bool isDescending = true;
 
             for (int i = 1; i < decimalNumberAsString.Length && isDescending; i++)
             {
-                if(currentChar <= decimalNumberAsString[i])
-                {
-                    isDescending = false;
-                }
-
-                currentChar = decimalNumberAsString[i];
+                isDescending = currentDigit > decimalNumberAsString[i];
+                currentDigit = decimalNumberAsString[i];
             }
 
             if (isDescending)
             {
-                r_NumOfDescendingDigits += 1;
+                i_NumOfDescendingDigits += 1;
             }
         }
 
-        private static void checkIfPalindrome(int i_DecimalNumber, ref int r_numOfPalindromes)
+        private static void checkIfNumberIsPalindrome(int i_DecimalNumber, ref int i_NumOfPalindromes)
         {
             string decimalNumberAsString = i_DecimalNumber.ToString();
             bool isPalindrome = true;
@@ -163,33 +166,32 @@ there are {5} numbers whose digits make a palindrome",
 
             if (isPalindrome)
             {
-                r_numOfPalindromes += 1;
+                i_NumOfPalindromes += 1;
             }
         }
 
-        private static void sortArrayOfIntegers(ref int[] r_array)
+        private static void sortArrayOfIntegersUsingBobbleSort(ref int[] i_Array)
         {
-            const int k_NumOfNumbers = 3;
-
-            for(int i = 0; i < k_NumOfNumbers - 1; i++)
+            for(int i = 0; i < i_Array.Length - 1; i++)
             {
-                for(int j = 0; j < k_NumOfNumbers - i - 1; j++)
+                for(int j = 0; j < i_Array.Length - i - 1; j++)
                 {
-                    if(r_array[j] < r_array[j + 1])
+                    if(i_Array[j] < i_Array[j + 1])
                     {
-                        int temp = r_array[j];
-                        r_array[j] = r_array[j + 1];
-                        r_array[j + 1] = temp;
+                        int temp = i_Array[j];
+                        i_Array[j] = i_Array[j + 1];
+                        i_Array[j + 1] = temp;
                     }
                 }
             }
         }
 
-        private static string addIntegersToString(int[] i_Integers)
+        private static string createRowStringFrom3NumberInIntegerArray(int[] i_Integers)
         {
             StringBuilder stringOfNumbers = new StringBuilder();
 
             stringOfNumbers.AppendFormat("{0} {1} {2}", i_Integers[0], i_Integers[1], i_Integers[2]);
+
             return stringOfNumbers.ToString();
         }
     }
