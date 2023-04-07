@@ -13,7 +13,7 @@ namespace Ex01_04
 
         private static void runStringAnalysis()
         {
-            string userInput=string.Empty;
+            string userInput = string.Empty;
             StringBuilder stringAnalysis = new StringBuilder();
 
             Console.WriteLine("Please enter a string of either 6 digits or 6 letters:");
@@ -21,7 +21,7 @@ namespace Ex01_04
             stringAnalysis.Append("Is the string a palindrome? ").Append(checkIfStringIsPalindrome(userInput)).Append(Environment.NewLine);
             if(int.TryParse(userInput, out int parsedInteger))
             {
-                stringAnalysis.Append("Is the number divisible by 3? ").Append(checkIfDivisableBy3(parsedInteger)).Append(Environment.NewLine);
+                stringAnalysis.Append("Is the number divisible by 3? ").Append(checkIfDivisibleBy3(parsedInteger)).Append(Environment.NewLine);
             }
             else
             {
@@ -29,24 +29,20 @@ namespace Ex01_04
             }
 
             Console.WriteLine(stringAnalysis);
-
             Console.WriteLine("Please press 'Enter' to exit...");
             Console.ReadLine();
         }
 
         private static string getValidSixCharStringInputOfLetterOrNumbersOnlyFromUser()
         {
-            bool isInvalidInputLettersOnlyOrNumbersOnly= true;
+            bool isInvalidInputLettersOnlyOrNumbersOnly = false;
             string userInput = string.Empty;
 
-            while (isInvalidInputLettersOnlyOrNumbersOnly)
+            while (!isInvalidInputLettersOnlyOrNumbersOnly)
             {
                 userInput = Console.ReadLine();
-                if (checkUserInput(userInput))
-                {
-                    isInvalidInputLettersOnlyOrNumbersOnly = false;
-                }
-                else
+                isInvalidInputLettersOnlyOrNumbersOnly = checkIfUserInputIsNumberOnlyOrLetterOnly(userInput);
+                if(!isInvalidInputLettersOnlyOrNumbersOnly)
                 {
                     Console.WriteLine("The input you entered is invalid. Please try again.");
                 }
@@ -55,17 +51,12 @@ namespace Ex01_04
             return userInput;
         }
 
-        private static bool checkUserInput(string i_UserInput, int i_ValidStringLength = 6)
+        private static bool checkIfUserInputIsNumberOnlyOrLetterOnly(string i_UserInput, int i_ValidStringLength = 6)
         {
-            bool isValidInput = true;
             bool isLetter = char.IsLetter(i_UserInput[0]);
+            bool isValidInput = char.IsLetterOrDigit(i_UserInput[0]) && i_UserInput.Length == i_ValidStringLength;
 
-            if (!char.IsLetterOrDigit(i_UserInput[0]) || i_UserInput.Length != i_ValidStringLength)
-            {
-                isValidInput = false;
-            }
-
-            for(int i = 1; i < i_UserInput.Length && isValidInput; i++)
+            for (int i = 1; i < i_UserInput.Length && isValidInput; i++)
             {
                 if((!isLetter && !char.IsDigit(i_UserInput[i])) || (isLetter && !char.IsLetter(i_UserInput[i])))
                 {
@@ -76,35 +67,35 @@ namespace Ex01_04
             return isValidInput;
         }
 
-        private static bool checkIfStringIsPalindrome(string i_userInput)
+        private static bool checkIfStringIsPalindrome(string i_UserInput)
         {
             bool isPalindrome;
 
-            if(i_userInput.Length < 2)
+            if(i_UserInput.Length < 2)
             {
                 isPalindrome = true;
             }
             else
             {
-                isPalindrome = (i_userInput[0] == i_userInput[i_userInput.Length - 1])
-                               && checkIfStringIsPalindrome(i_userInput.Substring(1, i_userInput.Length - 2));
+                isPalindrome = (i_UserInput[0] == i_UserInput[i_UserInput.Length - 1])
+                               && checkIfStringIsPalindrome(i_UserInput.Substring(1, i_UserInput.Length - 2));
             }
 
             return isPalindrome;
         }
 
-        private static bool checkIfDivisableBy3(int i_userInput)
+        private static bool checkIfDivisibleBy3(int i_UserInput)
         {
-            return i_userInput % 3 == 0;
+            return i_UserInput % 3 == 0;
         }
 
-        private static int countUppercaseLetters(string i_userInput)
+        private static int countUppercaseLetters(string i_UserInput)
         {
             int uppercaseCount = 0;
 
-            for(int i = 0; i < i_userInput.Length; i++)
+            for(int i = 0; i < i_UserInput.Length; i++)
             {
-                if (char.IsUpper(i_userInput[i]))
+                if (char.IsUpper(i_UserInput[i]))
                 {
                     uppercaseCount++;
                 }

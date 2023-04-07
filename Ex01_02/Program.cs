@@ -5,10 +5,10 @@ namespace Ex01_02
 { 
     public class Program
     {
-        const int k_DimaondHeight = 9;
-        const int k_StaringNumberOfStars = 1;
-        const char k_DiamondFillerChar = ' ';
-        const char k_DiamondCharSign = '*';
+        private const int k_DimaondHeight = 9;
+        private const int k_StaringNumberOfStars = 1;
+        private const char k_DiamondFillerChar = ' ';
+        private const char k_DiamondCharSign = '*';
 
         public static void Main()
         {
@@ -37,7 +37,7 @@ namespace Ex01_02
             }
         }
 
-        private static void stringOfSingleChar(char i_CharToRepeat, int i_CharAmount, ref StringBuilder o_OutputString)
+        private static void createStringByCharRepat(char i_CharToRepeat, int i_CharAmount, ref StringBuilder o_OutputString)
         {
             for(int i = 0; i < i_CharAmount; i++)
             {
@@ -50,9 +50,9 @@ namespace Ex01_02
             int spaceCharBeforeStarsAmount = (i_LineLength - i_NumberOfStars) / 2;
             StringBuilder lineOsStartString = new StringBuilder(i_LineLength);
 
-            stringOfSingleChar(k_DiamondFillerChar, spaceCharBeforeStarsAmount, ref lineOsStartString);
-            stringOfSingleChar(k_DiamondCharSign, i_NumberOfStars, ref lineOsStartString);
-            System.Console.WriteLine(lineOsStartString.ToString());
+            createStringByCharRepat(k_DiamondFillerChar, spaceCharBeforeStarsAmount, ref lineOsStartString);
+            createStringByCharRepat(k_DiamondCharSign, i_NumberOfStars, ref lineOsStartString);
+            Console.WriteLine(lineOsStartString.ToString());
         }
     }
 }

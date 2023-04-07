@@ -4,73 +4,130 @@ namespace Ex01_05
 {
    public class Program
     {
+        private const int k_RequireNumberInputLength = 6;
+
         public static void Main()
         {
-            getNumberAndCheckStatistics();
+            getNumberAndPrintStatistics();
         } 
 
-        private static void getNumberAndCheckStatistics()
+        private static void getNumberAndPrintStatistics()
         {
-            string stringNumberRaw;
-            int smallestDigit = 10;
-            int countDivideIn3 = 0;
-            int countBiggerThenUnitPlace = 0;
-            int sumAllDigit = 0;
-            bool isInputIsNumber, isSixDigitNumber;
-            string massageToUser = "Please enter a six digit of integer number to run statistics and press enter:";
-            int o_numberToCheck;
-            const int reqireNumberInputLength = 6;
+            string stringNumberRaw = getValidSixDigitIntegerNumberFromUser();
+            int smallestDigit = getTheSmallestDigitInTheNumber(stringNumberRaw);
+            int countDivideIn3 = countDigitThatDivisibleBy3(stringNumberRaw);
+            int countBiggerThenUnitPlace = countDigitThatBiggerThenUnitPlace(stringNumberRaw);
+            float digitAverage = calculateAllDigitAverage(stringNumberRaw);
 
-            do
+            Console.WriteLine(
+                $@"Number Statistic:
+        number of digit that bigger then unit place: {countBiggerThenUnitPlace}
+        the smallest digit: {smallestDigit}
+        the number is digits that divide by 3: {countDivideIn3}
+        the average of the number digits: {digitAverage}");
+        Console.WriteLine("Please press 'Enter' to exit...");
+        Console.ReadLine();
+        }
+
+        private static int getTheSmallestDigitInTheNumber(string i_NumberAsString)
+        {
+            int currentDigit;
+            string currentDigitString;
+            int smallestDigit = int.Parse(i_NumberAsString[0].ToString());
+
+            for (int i = 1; i < i_NumberAsString.Length; i++)
             {
-                System.Console.Write(massageToUser);
-                stringNumberRaw = System.Console.ReadLine();
-                isInputIsNumber = int.TryParse(stringNumberRaw, out o_numberToCheck);
-                isSixDigitNumber = stringNumberRaw.Length == reqireNumberInputLength;
-                if(!isInputIsNumber)
+                currentDigitString = i_NumberAsString[i].ToString();
+                currentDigit = int.Parse(currentDigitString);
+                smallestDigit = Math.Min(smallestDigit, currentDigit);
+            }
+
+            return smallestDigit;
+        }
+
+        private static int countDigitThatDivisibleBy3(string i_NumberAsString)
+        {
+            string currentDigitString;
+            int countDivisibleBy3 = 0;
+      
+            for (int i = 0; i < i_NumberAsString.Length; i++)
+            {
+                currentDigitString = i_NumberAsString[i].ToString();
+                if(int.Parse(currentDigitString) % 3 == 0)
                 {
-                    massageToUser = "invalid integer number,try again and press enter:";
-                }
-                else if(!isSixDigitNumber)
-                {
-                    massageToUser = string.Format(
-                        "invalid number length-must enter {0} of digit number,try again and press enter:",
-                        reqireNumberInputLength);
+                    countDivisibleBy3++;
                 }
             }
-            while(!isInputIsNumber || !isSixDigitNumber);
 
-            int digitAmount = stringNumberRaw.Length;
-            string unitDigitRaw = stringNumberRaw.Substring(stringNumberRaw.Length - 1);
-            int.TryParse(unitDigitRaw, out int unitDigit);
+            return countDivisibleBy3;
+        }
 
-            for(int i = 0; i < digitAmount; i++)
+        // return -1 if i_NumberAsString is empty string
+        private static float calculateAllDigitAverage(string i_NumberAsString)
+        {
+            string currentDigitString;
+            float sumOfDigit = 0;
+            float averageDigit = -1;
+
+            for (int i = 0; i < i_NumberAsString.Length; i++)
             {
-                string currentDigitString = stringNumberRaw[i].ToString();
-                int.TryParse(currentDigitString, out int currentDigit);
-                sumAllDigit += currentDigit;
-                if(currentDigit % 3 == 0)
-                {
-                    countDivideIn3++;
-                }
+                currentDigitString = i_NumberAsString[i].ToString();
+                sumOfDigit += int.Parse(currentDigitString);
+            }
 
-                smallestDigit = Math.Min(smallestDigit, currentDigit);
+            if(i_NumberAsString.Length != 0)
+            {
+                averageDigit = sumOfDigit / i_NumberAsString.Length;
+            }
 
-                if (currentDigit > unitDigit)
+            return averageDigit;
+        }
+
+        private static int countDigitThatBiggerThenUnitPlace(string i_NumberAsString)
+        {
+            string currentDigitString;
+            int countBiggerThenUnitPlace = 0;
+            int unitPlaceDigit = int.Parse(i_NumberAsString[i_NumberAsString.Length - 1].ToString());
+
+            for (int i = 0; i < i_NumberAsString.Length; i++)
+            {
+                currentDigitString = i_NumberAsString[i].ToString();
+                if (int.Parse(currentDigitString) > unitPlaceDigit)
                 {
                     countBiggerThenUnitPlace++;
                 }
             }
 
-            System.Console.WriteLine(
-                $@"Number Statistic:
-        number of digit that bigger then unit place: {countBiggerThenUnitPlace}
-        the smallest digit: {smallestDigit}
-        the number is digits that divide in 3 :{countDivideIn3}
-        the average of the number digits: {sumAllDigit / digitAmount}"); 
+            return countBiggerThenUnitPlace;
+        }
 
-        Console.WriteLine("Please press 'Enter' to exit...");
-        Console.ReadLine();
+        private static string getValidSixDigitIntegerNumberFromUser()
+        {
+            string stringNumberRaw;
+            string massageToUser = "Please enter a six digit of integer number to run statistics and press enter:";
+            int o_numberToCheck;
+            bool isInputIsNumber, isSixDigitNumber;
+
+            do
+            {
+                Console.Write(massageToUser);
+                stringNumberRaw = Console.ReadLine();
+                isInputIsNumber = int.TryParse(stringNumberRaw, out o_numberToCheck);
+                isSixDigitNumber = stringNumberRaw.Length == k_RequireNumberInputLength;
+                if (!isInputIsNumber)
+                {
+                    massageToUser = "invalid integer number,try again and press enter:";
+                }
+                else if (!isSixDigitNumber)
+                {
+                    massageToUser = string.Format(
+                        "invalid number length-must enter {0} of digit number,try again and press enter:",
+                        k_RequireNumberInputLength);
+                }
+            }
+            while (!isInputIsNumber || !isSixDigitNumber);
+
+            return stringNumberRaw;
         }
     }
 }

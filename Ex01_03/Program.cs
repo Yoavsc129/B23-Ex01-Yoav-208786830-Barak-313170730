@@ -7,10 +7,10 @@ namespace Ex01_03
     {
         public static void Main()
         {
-            PrintDiamondWithCustomizeHeight();
+            printDiamondWithCustomizeHeight();
         }
 
-        private static void PrintDiamondWithCustomizeHeight()
+        private static void printDiamondWithCustomizeHeight()
         {
             int diamondHeight = getValidDiamondHeightInput();
 
@@ -19,13 +19,16 @@ namespace Ex01_03
 
         private static int getValidDiamondHeightInput()
         {
-            System.Console.Write("Please enter the desire diamond height(non negative integer) and press enter:");
-            string stringNumberRaw = System.Console.ReadLine();
-            bool isSuccessParseString = int.TryParse(stringNumberRaw, out int o_diamondHeight);
+            string stringNumberRaw;
+            bool isSuccessParseString;
+
+            Console.Write("Please enter the desire diamond height(non negative integer) and press enter:");
+            stringNumberRaw = Console.ReadLine();
+            isSuccessParseString = int.TryParse(stringNumberRaw, out int o_diamondHeight);
             while (!isSuccessParseString || o_diamondHeight < 0)
             {
-                System.Console.Write("invalid non negative height number,try again and press enter:");
-                stringNumberRaw = System.Console.ReadLine();
+                Console.Write("invalid height-must be non negative integer ,try again and press enter:");
+                stringNumberRaw = Console.ReadLine();
                 isSuccessParseString = int.TryParse(stringNumberRaw, out o_diamondHeight);
             }
 
